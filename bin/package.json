@@ -1,0 +1,32 @@
+{
+  "name": "data_structures",
+  "version": "0.0.1",
+  "description": "Basic Typescript Based Datastructures ",
+  "main": "ts/app.ts",
+  "directories": {
+    "ts": "ts",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "typescript",
+    "data",
+    "structures",
+    "unit",
+    "test"
+  ],
+  "author": "Jack Harrison",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jasmine": "^2.8.7",
+    "@types/jest": "^22.2.3",
+    "@types/node": "^10.1.2",
+    "jasmine": "^3.1.0",
+    "jest": "^23.0.0",
+    "ts-jest": "^22.4.6",
+    "ts-node": "^6.0.5",
+    "typescript": "^2.8.3"
+  }
+}
