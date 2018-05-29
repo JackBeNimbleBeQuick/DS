@@ -5,12 +5,13 @@ export class ObjectSizeEstimate{
 
 /**
  * Returns length of the NodeList
- * @NOTE it may be more semantic to actually run a size of memory
- * for all nodes in this list and make new method for getLength
  * ref for code: http://code.iamkate.com/javascript/finding-the-memory-usage-of-objects/
  * ref https://gist.github.com/zensh/4975495
  * @TODO move the sizer into the Librarian.Utility path
- * @return [description]
+ * @return memory object
+ * meant as a memory inspector though this will be a truly
+ * rough estimate when implemented
+ * WARNING this is not implemented at all and just placeholder for now
  */
 public size = (current) => {
   let byten = 0;

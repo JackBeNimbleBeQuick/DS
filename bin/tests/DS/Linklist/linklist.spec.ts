@@ -369,17 +369,8 @@ it('test of  '+
   list = new NodeList('first');
   expect(list.getFirst().data).toEqual('first');
   // console.log(list.display().join(', '));
-
-  // let named:Object;
-  // let make = () => {['first','second','third','fourth','fifth','sixth','seventh','eigth', 'ninth','tenth'].forEach((item)=>{
-  //     named[item] = list.appendData(item);
-  //     let ip = list.appendData('second');
-  //     expect(ip.data).toEqual('second');
-  //   });
-  // }
-  // make();
-
-  //@TODO wrap these in while for next and previous
+  //@TODO wrap these in while and
+  //@TODO use node.next and node.previous for a more robust test
   let ip = list.appendData('second');
   expect(ip.data).toEqual('second');
   expect(ip.previous.data).toEqual('first');
@@ -441,7 +432,7 @@ it('test of  '+
   let list = new NodeList();
   let named = {};
 
-  let make = () => {['first','second','third','fourth','fifth','sixth','seventh','eigth', 'ninth','tenth'].forEach((item)=>{
+  let make = () => {['first','second','third','fourth','fifth','sixth','seventh','eighth', 'ninth','tenth'].forEach((item)=>{
       named[item] = list.appendData(item);
     });
   }
