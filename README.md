@@ -126,7 +126,7 @@ interface NodeList {
 
 
 #### Thanks for coming to the show, come on back when the full band is here
-- result makes me real happy 8^)
+- this result makes me real happy 8^) sanity is coming to the land of js....
 
 ```
 npm audit
