@@ -31,7 +31,87 @@
 
 ### Known issues
 - library is still in development and not ready for production
-- linkedList: still has some circular references in the secondary pointers, working to fix that
-- linkedList: as part of exploring the pattern it does not follow the classic pattern, that may change over time.... 8^) still some things to prove out to myself here
+- Still working to get that perfect score all lines tested but not yet showing in the coverage reports... ~<|8^]
+
+### Interface
+
+```
+interface NodeList {
+  //pointers private
+  _pointer: Node,
+  _first: Node,
+  _last: Node,
+  _len: number,
+
+  //accessors
+  getFirst(): Node,
+  getLast(): Node,
+  currentData: Object, //Node.data for each pointer
+  current(): Object,
+  seekByValue(any): Node | null,
+  length():number,
+
+  //diagnostic
+  display():Array<Object>,
+
+  stepBackTo(number): Node,
+  stepForwardTo(number): Node,
+  appendData(any): Node,
+
+  //controlled input
+  insert(nodal): Node,
+  //takes form method(left:Node, new:Node );
+  insertNewBefore(Node): Node,
+  insertNewAfter(Node): Node ,
+
+  //unlinks a node and returns its data | null
+  unlink(node:Node): any | null,
+
+  //transforms on data see Librarian/Transform
+  apply(Function): void,
+}
+```
+
+### Usage
+
+#### instantiate a list
+```
+  let list = new NodeList();
+  let named = {};
+
+  let make = () => {['first','second','third','fourth','fifth','sixth','seventh','eigth', 'ninth','tenth'].forEach((item)=>{
+      named[item] = list.appendData(item);
+  });
+```
+#### cycle a list
+```
+  let transformer = Fibonacci.Transformer;
+  let current = list.getFirst();
+
+  while(current){
+    transformer(current);
+    // ...or what ever
+    current = current.next;
+  }
+
+```
+### build and use transformers
+
+```
+  let end = 19
+  let i = 0;
+  do{
+    list.appendData(i);
+  }
+  while((i++ < end))
+
+  //transformed list
+  list.apply(Fibonacci.Transformer);
+
+  console.log(list.display().join(','))
+
+```
+
+
 
 #### Thanks for coming to the show, come on back when the full band is here
