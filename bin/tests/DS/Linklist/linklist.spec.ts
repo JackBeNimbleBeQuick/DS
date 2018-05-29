@@ -6,30 +6,44 @@ import {Fibonacci} from 'DS/Librarian/Transforms/Linklist/Fibonacci';
 const predict = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765];
 
 /*
-@TODO Tests
-  Quick todo ticks before adding converage packages
-  .valid NodeList constructions
-    √.empty has all null node pointers
-    .fastForward inserts first node with data
-
-    .valid insertions
-      √.insert after
-      .insert before
-
-    .accessors
-      √.first node on chain
-      .last node on chain
-
-    .Transforms
-      √.apply function
-      √.apply literals
-
-    going backward tests
-      ... add checks
-    chain breaking tests
-      ... add checks
-
- */
+@TESTS snap shot 2018.26.05
+✓ test of moving up and down a NodeList by number of steps
+   NodeList.stepForwardTo(number)
+   NodeList.stepBackTo(number)
+   NodeList.currentData() (1ms)
+✓ test of
+   NodeList.insertAfter(Node)
+   NodeList.insertBefore(Node)
+   NodeList.current() (1ms)
+✓ test of
+   NodeList.append(data)
+   NodeList.length()
+   NodeList.insert(nodal.backwards)()
+   NodeList.insert(nodal.insertAfter)()
+   NodeList.insert(nodal.insertBefore)()
+✓ test of
+   DoubleNodal.(not_valid_tests)
+   NodeList.insert(insert.forward)
+   NodeList.insert(insert.backward)
+   NodeList.current() (7ms)
+✓ test of
+   Games with nodal deletion
+   NodeList.unlink(named_nodes)
+   NodeList.seekByValue(value:any) (33ms)
+Node Assemblies
+  ✓ constructing valid nodal w/ small talk and inserting to front (6ms)
+  ✓ test using Fibonacci series
+   [Externally Transformed] series proof of:
+   NodeList.getFirst()
+   NodeList.insert()
+(8ms)
+  ✓ test using Fibonacci series
+   [Internally Transformed with NodeList.apply(Function)]
+   NodeList.apply()  (2ms)
+  ✓ test of simple initalizing all nodes with a values
+   [Internally Transformed with NodeList.apply( number | boolen | string | object )]
+(4ms)
+*/
 
 describe('Node Assemblies', () => {
 
@@ -75,7 +89,7 @@ describe('Node Assemblies', () => {
       current = current.previous;
       pi--;
     }
-
+;
   });
 
   it('test using Fibonacci series'+
@@ -235,8 +249,8 @@ it('test of moving up and down a NodeList by number of steps '+
 
 // @NOTE Node midway references
 it('test of  '+
-'\n     NodeList.insertAfter(Node)'+
-'\n     NodeList.insertBefore(Node)'+
+'\n     NodeList.insertNewAfter(Node)'+
+'\n     NodeList.insertNewBefore(Node)'+
 '\n     NodeList.current()', () => {
 
   //create list and then Let Fibonacci teach it some math
@@ -356,11 +370,23 @@ it('test of  '+
   expect(list.getFirst().data).toEqual('first');
   // console.log(list.display().join(', '));
 
+  // let named:Object;
+  // let make = () => {['first','second','third','fourth','fifth','sixth','seventh','eigth', 'ninth','tenth'].forEach((item)=>{
+  //     named[item] = list.appendData(item);
+  //     let ip = list.appendData('second');
+  //     expect(ip.data).toEqual('second');
+  //   });
+  // }
+  // make();
+
+  //@TODO wrap these in while for next and previous
   let ip = list.appendData('second');
   expect(ip.data).toEqual('second');
   expect(ip.previous.data).toEqual('first');
   expect(list.current().current.data).toEqual('second');
   expect(list.currentData().current).toEqual('second');
+  //save ref for latter
+  let second = ip;
   // console.log(list.current().current.data);
   // console.log(list.display().join(', '));
 
@@ -386,10 +412,102 @@ it('test of  '+
   expect(list.currentData().first).toEqual('first');
   expect(list.currentData().last).toEqual('fourth');
   expect(list.currentData().current).toEqual('fourth');
-  console.log(list.display().join(', '));
+
+  //test for some ramdoms that sometimes get missed
+  //@NOTE for currentData() and current() calls
+  expect(list.current().current.data).toEqual('fourth');
+  expect(list.current().first.data).toEqual('first');
+  expect(list.current().last.data).toEqual('fourth');
+
+  expect(list.currentData().current).toEqual('fourth');
+  expect(list.currentData().first).toEqual('first');
+  expect(list.currentData().last).toEqual('fourth');
+
+  // console.log(list.display().join(', '));
+
   // console.log(list.current().first.data);
   // console.log(list.current().last.data);
   // console.log(list.current().current.data);
+});
+
+
+it('test of  '+
+'\n     Games with nodal deletion'+
+'\n     NodeList.unlink(named_nodes)'+
+'\n     NodeList.seekByValue(value:any)'+
+''
+, () => {
+
+  let list = new NodeList();
+  let named = {};
+
+  let make = () => {['first','second','third','fourth','fifth','sixth','seventh','eigth', 'ninth','tenth'].forEach((item)=>{
+      named[item] = list.appendData(item);
+    });
+  }
+  make();
+
+  let report = '';
+  let current = list.getFirst();
+  let keys = Object.keys(named);
+  while(list.length() > 0){
+    //randmom from remaining keys
+    let pick = Math.floor(Math.random()*keys.length);
+    //key of named to remove from NodeList
+    let select = named[keys[pick]];
+    let line = `pick: ${pick} key: ${ select ? select.data : 'null select'} \n`;
+    report += line;
+
+    //unlink the named[key];
+    let value = list.unlink(select);
+    line = `${value} removed from list\n ${list.display().join(', ')}\n\n`;
+    report += line;
+
+    keys.splice(pick,1);
+  }
+
+  console.log(`Delete Report: '+
+  '\n this is best done with eyeballs'+
+  '\n no faiures is a good indication that things work'+
+  '\n ${report}`);
+
+
+  list = new NodeList();
+  make();
+  // console.log(list);
+  console.log(list.display().join(', '));
+
+  current = list.getFirst();
+  keys = Object.keys(named);
+  named = {};
+  while(keys.length > 0){
+    //randmom from remaining keys
+    let pick = Math.floor(Math.random()*keys.length);
+    //key of named to remove from NodeList
+    let select = named[keys[pick]];
+    let line = `pick: ${pick} key: ${ select ? select.data : 'null select'} \n`;
+    report += line;
+
+    //unlink the named[key];
+    let node = list.seekByValue(keys[pick]);
+    line = `For ${keys[pick]}: ${node.data} found in list ${keys[pick] === node.data}\n \n\n`;
+
+    expect(keys[pick]).toEqual(node.data);
+
+    //seeking by Object | Node will fail at this time
+    try{
+      node = list.seekByValue(node);
+    }catch(e){
+      expect('failed').toEqual('failed');
+    }
+
+    node = list.seekByValue('something made up');
+    expect(node).toEqual(null);
+
+    report += line;
+
+    keys.splice(pick,1);
+  }
 });
 
 export class transforms{

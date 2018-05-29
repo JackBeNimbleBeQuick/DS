@@ -1,15 +1,33 @@
-interface NodeList{
-  _first: Node | null,
-  _last: Node | null,
-  _len: Number,
-  _items(): NodeList,
-  constructor(any): NodeList,
-  getfirst(): Node,
-  insert(nodal): NodeList,
-  delete(Node): NodeList
-  apply(any): NodeList
-  stepForwardTo(number): void
-  stepBackTo(number): void
+interface NodeList {
+  //pointers
+  _pointer: Node,
+  _first: Node,
+  _last: Node,
+  _len: number,
+
+  //accessors
+  getFirst(): Node,
+  getLast(): Node,
+  currentData: Object, //Node.data for each pointer
+  current(): Object,
+  seekByValue(any): Node | null,
+  // length():number, //TS does not like this one
+
+  //diagnostic
+  display():Array<Object>,
+
+  stepBackTo(number): Node,
+  stepForwardTo(number): Node,
+  appendData(any): Node,
+
+  //controlled input
+  insert(nodal): Node,
+  //takes form method(left:Node, new:Node );
+  insertNewBefore(Node): Node,
+  insertNewAfter(Node): Node ,
+
+  //transforns on data see Librarian/Transform
+  apply(Function): void,
 }
 
 interface Node{

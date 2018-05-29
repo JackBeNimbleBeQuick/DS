@@ -12,9 +12,9 @@ export class ValidNodal implements ValidNodal{
   protected new:null | Node;
 
   /**
-   * @REVIEW this may not be necessary
-   * @TODO generalize more and move into general Validator class
-   *  :. this should extend from the more general validator class YTBB
+   * @REVIEW constructor may not be necessary
+   * @TODO generalize more and move into general Validated | Validator class
+   *  :. this should extend from the more general validator class YTBB (yet to be built)
    *
    * GP Validator of this type
    * @param options Objet of keyed properties of the class

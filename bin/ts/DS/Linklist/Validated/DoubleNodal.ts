@@ -11,10 +11,13 @@ export class DoubleNodal extends ValidNodal{
   /**
    * Follew a validator chain pattern where validators can ne arbitraryly sequenced
    * Use cases: Forms, DataEntry, Post, Requests....
+   . this Class could be the start of something like validated protocols
+   . where the contructor is the missing abstract method instead of the isValid in validator
+   . ** just playing around with this idea here 8^)
 
    * Constructor of Validated nodal i.e. this not a validator in the pure sense
    * versus a Validator which only concerns itself with the isValid method and custom messaging
-   * constructure the Object:protocol and determines if is valid at the same time
+   * this constructs the Object:protocol and determines if is valid at the same time
 
    * @param newNode Node | null
    * @param currentNode Node | null

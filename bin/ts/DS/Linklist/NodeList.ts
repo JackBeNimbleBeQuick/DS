@@ -1,3 +1,5 @@
+///<reference path="./interface.d.ts" />
+
 import { Node } from  'DS/Linklist/Node';
 import { DoubleNodal } from  'DS/Linklist/Validated/DoubleNodal';
 
@@ -69,19 +71,47 @@ export class NodeList implements NodeList{
   public display = ():Array<any> => {
     let current = this._first;
     let result = [];
-    do{
-      this._pointer = current;
-      result.push(this.currentData().current);
+    let i= 0;
+    while(current){
+      result.push(current.data);
       current = current.next;
+      i++;
     }
-    while(current);
     return result;
   }
 
+  /**
+   * get current length of the list
+   * @param  current&&steps [description]
+   * @return                [description]
+   */
   public length = () => {
     return this._len;
   }
 
+  /**
+   * Seek list by Name... indexing or hashing would make this
+   * faster ... but should most like called as a bandwidth Provides
+   *
+   * @param  current&&steps [description]
+   * @return {Node | null}
+   * returns first instance of
+   */
+  public seekByValue = (value) =>{
+    let current = this._first;
+    let dv = /(string|number|boolean)/.test(typeof value);
+
+    while(current){
+      if(dv && current.data === value){
+        return current;
+      }else if(!dv){
+        throw Error('Na, we are not doing that yet');
+      }
+      current = current.next;
+    }
+
+    return null;
+  }
 
   /** √
    * Provide safe steps from _last to steps back | startOfList
@@ -114,58 +144,6 @@ export class NodeList implements NodeList{
     }
     return current;
   }
-  /** additions to list **/
-  /**
-   * Simple as it gets append to end or start list with first entry
-   * @param  {number} this._len===0
-   * @return {Node} this._pointer
-   */
-  public appendData = (data:any) => {
-    if(this._len === 0){
-       this.firstNode(new Node(data));
-    }
-    this.lastNode(new Node(data));
-
-    this._len++;
-    return this._pointer;
-  }
-
-  /**
-   * nodal acts as protocal for changes on List
-   * nodal.forward:boolen, nodal.current:Node nodal.new: null | Node
-   * @NOTE me thinks this ambitious and needing a very well thought out unit test
-   * @param {nodal} follows validation pattern
-   * @return {Void} sets base NodeList params
-   * @TODO this is too complex replace with::
-   *  ** append, insertNewAfter, insertNewBefore, prepend
-   */
-  public insert = (st:nodal) => {
-    let selectNode : null | Node = st.current;
-    let newNode    : Node = st.new;
-    let insert  = selectNode && newNode;
-    let isNew   = selectNode === null && newNode ? true : false;
-    let isFirst = isNew && this._len === 0;
-    let prev    = selectNode ? selectNode.previous : null;
-
-    // first node in chain
-    if(insert){
-      if(st.forward){
-         this.insertNewAfter( newNode, selectNode);
-      }else{ //backward
-        this.insertNewBefore( newNode, selectNode);
-      }
-    }else{
-      if( isFirst ){
-        this.firstNode(newNode);
-      }else {
-        this.lastNode(newNode);
-      }
-    }
-
-    this._len ++;
-    return this._pointer;
-
-  }
 
   /** √
    * Provides a transform on the List
@@ -194,6 +172,100 @@ export class NodeList implements NodeList{
 
     return this;
   }
+
+  /** additions to list **/
+  /**
+   * Simple as it gets append to end or start list with first entry
+   * @param  {number} this._len===0
+   * @return {Node} this._pointer
+   */
+  public appendData = (data:any) => {
+    let method:Function;
+    if(this._len === 0){
+      // method = this.firstNode;
+      this.firstNode(new Node(data));
+    }else{
+      this.lastNode(new Node(data));
+    }
+    this._len++;
+    return this._pointer;
+  }
+
+  /**
+   * nodal acts as protocal for changes on List
+   * @NOTE optionally method for controlled ingesting of data
+   * ->>see @append where data can be passed in directly
+   * nodal.forward:boolen, nodal.newNode:Node nodal.selectNode: null | Node
+   * data is passed and the internals stay internal
+   * @param {nodal} follows validation pattern
+   * @return {Void} sets base NodeList params
+   *  ** append, insertNewAfter, insertNewBefore, prepend
+   */
+  public insert = (st:nodal) => {
+    let selectNode : null | Node = st.current;
+    let newNode    : Node = st.new;
+    let insert  = selectNode && newNode;
+    let isNew   =  ! selectNode && newNode ? true : false;
+    let isFirst = isNew && this._len === 0;
+    let prev    = selectNode ? selectNode.previous : null;
+
+    // first node in chain
+    if(insert){
+      if(st.forward){
+         this.insertNewAfter( newNode, selectNode);
+      }else{ //backward
+        this.insertNewBefore( newNode, selectNode);
+      }
+    }else{
+      if( isFirst ){
+        this.firstNode(newNode);
+      }else {
+        this.lastNode(newNode);
+      }
+    }
+
+    this._len ++;
+    return this._pointer;
+
+  }
+
+  /**
+   * Simple unlink and node
+   * @param {Node} node
+   * @return {any} value
+   * provides the unlink % plucking of data
+   * from this many convience method may come
+   * s@ pop, pluck, popTop, popBottom
+   */
+  public unlink(node:Node){
+    //is at top
+    if(!node) return null;
+    let value = node.data;
+    let prev = node.previous;
+    let next = node.next;
+
+    //is at top
+    if(node === this._first){
+      // console.log(`TOP of LIST first now is ${this._first.data}`);
+      this._first = node.next;
+      node.next = null;
+    //is at bottom
+    }else if( !node.next ){
+      prev.next = null;
+      this._last = node.previous;
+    //somewhere in the middle
+    }else{
+      //both the next and previous node links need to be broken
+      node.next = null;
+      node.previous.next= null;
+      prev.next = next;
+      next.previous = prev;
+    }
+
+    this._len--;
+    return value;
+  }
+
 
   /**
    * Insert before the right node
@@ -259,19 +331,4 @@ export class NodeList implements NodeList{
     this._pointer = node;
     return this._pointer;
   }
-
-  /**
-   * compare and swap
-   * @param {Node} left
-   * @param {Node} right
-   * @param {Node} current
-   * @return if contents of
-   */
-  private cas(targetNode:Node, oldNode:Node, newNode: Node){
-
-  }
-
-
-
-
 }
