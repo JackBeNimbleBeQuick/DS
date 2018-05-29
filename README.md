@@ -23,10 +23,11 @@ NodeList:
 
 ...
 
-- git clone DS
+- git clone [DS](https://github.com/JackBeNimbleBeQuick/DS.git) 
 - mkdir MyDSLib
-- cd MyDSLib
+- cd MyDSLib/DS/bin
 - npm install
+-npm test
 
 ### Command lines
 - npm test
