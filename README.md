@@ -135,9 +135,6 @@ npm audit
                                                                                 
 found 0 vulnerabilities
  in 23784 scanned packages                                                                                
-                       === npm audit security report ===                        
-                                                                                
-found 0 vulnerabilities
- in 23784 scanned packages
+
  ```
 ``
