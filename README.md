@@ -1,9 +1,9 @@
 # DS Typescript Data Structures
-```
+<blockquote>
 NodeList:
- The use case for such a thing: could act as a functional description of dealing with a firehose worth of data, where some rx.js observers are attached to break away segments for store. Or this could be used for introspection and transforms in async activities before store. Not sure really but so far it has been fun to build within a test driven pattern 8^) I will explore some wrapper classes that implement such a pattern, because now I am curious.
+ The use case for such a thing: this could act as a functional description of dealing with a firehose worth of data, where some rx.js observers are attached to break away segments for store. Or this could be used for introspection and transforms in async activities before store. Not sure really but so far it has been fun to build within a test driven pattern 8^) I will explore some wrapper classes that implement such a pattern, because now I am curious.
+</blockquote>
 
-```
 
 ## A Kickstarter Kit for typescript test driven patterns with no js frameworks
 
@@ -23,10 +23,11 @@ NodeList:
 
 ...
 
-- git clone DS
+- git clone [DS](https://github.com/JackBeNimbleBeQuick/DS.git) 
 - mkdir MyDSLib
-- cd MyDSLib
+- cd MyDSLib/DS/bin
 - npm install
+-npm test
 
 ### Command lines
 - npm test
@@ -125,3 +126,15 @@ interface NodeList {
 
 
 #### Thanks for coming to the show, come on back when the full band is here
+- this result makes me real happy 8^) sanity is coming to the land of js....
+
+```
+npm audit
+                                                                                
+                       === npm audit security report ===                        
+                                                                                
+found 0 vulnerabilities
+ in 23784 scanned packages                                                                                
+
+ ```
+``
