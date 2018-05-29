@@ -126,3 +126,18 @@ interface NodeList {
 
 
 #### Thanks for coming to the show, come on back when the full band is here
+- result makes me real happy 8^)
+
+```
+npm audit
+                                                                                
+                       === npm audit security report ===                        
+                                                                                
+found 0 vulnerabilities
+ in 23784 scanned packages                                                                                
+                       === npm audit security report ===                        
+                                                                                
+found 0 vulnerabilities
+ in 23784 scanned packages
+ ```
+``
