@@ -1,9 +1,9 @@
 # DS Typescript Data Structures
-```
+<pre>
 NodeList:
  The use case for such a thing: could act as a functional description of dealing with a firehose worth of data, where some rx.js observers are attached to break away segments for store. Or this could be used for introspection and transforms in async activities before store. Not sure really but so far it has been fun to build within a test driven pattern 8^) I will explore some wrapper classes that implement such a pattern, because now I am curious.
+</pre>
 
-```
 
 ## A Kickstarter Kit for typescript test driven patterns with no js frameworks
 
