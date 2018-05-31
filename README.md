@@ -1,6 +1,6 @@
 # DS Typescript Data Structures
 <blockquote>
-NodeList <Not a linked list>
+NodeList _Not a linked list_
  The use case for such a thing: this could act as a functional description for dealing with a firehose worth of data, where some rx.js observers are attached to break away segments for store. Or this could be used for introspection and transforms in async activities before store. Not sure really but so far it has been fun to build within a test driven pattern 8^)
 </blockquote>
 
