@@ -3,7 +3,7 @@ import {Node} from 'DS/Linklist/Node';
 export class ValidNodal implements ValidNodal{
 
   protected valid = false;
-  protected nodal: nodal;
+  protected nodal: DSNode.nodal;
   protected message: string | null;
 
   //options assignable

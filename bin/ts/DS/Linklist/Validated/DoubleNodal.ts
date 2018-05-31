@@ -42,7 +42,7 @@ export class DoubleNodal extends ValidNodal{
       forward: forward !== null ? forward : true
     });
 
-    let noda: nodal;
+    let noda: DSNode.nodal;
 
     if( (currentNode instanceof Node || newNode instanceof Node)){
       this.valid = true;

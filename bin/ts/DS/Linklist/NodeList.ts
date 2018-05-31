@@ -8,7 +8,7 @@ export class NodeList implements NodeList{
   protected _pointer: Node | null = null;
   protected _first: Node | null = null;
   protected _last: Node | null = null;
-  protected _len      = 0;
+  protected _len:number = 0;
 
   public constructor(data?:any){
 
@@ -37,20 +37,7 @@ export class NodeList implements NodeList{
    * Provides current ListPointers of NodeList
    * @return {Object}
    */
-  public currentData = () => {
-    return {
-      size: this._len,
-      current: this._pointer.data,
-      first: this._first ? this._first.data : null,
-      last:  this._last ? this._last.data : null,
-    }
-  }
-
-  /** √
-   * Provides current ListPointers of NodeList
-   * @return {Object}
-   */
-  public current = () => {
+  public current = ():DSNode.listState => {
     return {
       size: this._len,
       current: this._pointer,
@@ -201,7 +188,7 @@ export class NodeList implements NodeList{
    * @return {Void} sets base NodeList params
    *  ** append, insertNewAfter, insertNewBefore, prepend
    */
-  public insert = (st:nodal) => {
+  public insert = (st:DSNode.nodal) => {
     let selectNode : null | Node = st.current;
     let newNode    : Node = st.new;
     let insert  = selectNode && newNode;
