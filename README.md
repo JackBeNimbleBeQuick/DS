@@ -1,7 +1,7 @@
 # DS Typescript Data Structures
 <blockquote>
-NodeList:
- The use case for such a thing: this could act as a functional description of dealing with a firehose worth of data, where some rx.js observers are attached to break away segments for store. Or this could be used for introspection and transforms in async activities before store. Not sure really but so far it has been fun to build within a test driven pattern 8^) I will explore some wrapper classes that implement such a pattern, because now I am curious.
+NodeList <Not a linked list>
+ The use case for such a thing: this could act as a functional description for dealing with a firehose worth of data, where some rx.js observers are attached to break away segments for store. Or this could be used for introspection and transforms in async activities before store. Not sure really but so far it has been fun to build within a test driven pattern 8^)
 </blockquote>
 
 
@@ -23,7 +23,7 @@ NodeList:
 
 ...
 
-- git clone [DS](https://github.com/JackBeNimbleBeQuick/DS.git) 
+- git clone [DS](https://github.com/JackBeNimbleBeQuick/DS.git)
 - mkdir MyDSLib
 - cd MyDSLib/DS/bin
 - npm install
@@ -36,6 +36,14 @@ NodeList:
   - tsconfig.json: adjust CompilerOptions to meet your needs a) outDir b) target
 
 ### Known issues
+- ** Not a linked list by pure definition, at this point this is a toy structure I am playing with as part of an exploration of other processing intensive activities.
+  - provides linked node structure much like a linked list but breaks the rules
+  to provide fast data grabbing that can be broken out for further introspective / processing as part of a stream storage chain
+  - it returns pointers
+  - it maintains length
+  - pointers can be accessed as part of data stream  
+  - it does not emulate LinkedList methods
+  - with a returned node you can process the chain externally, which offers it as subclass to node processing daemons... maybe 8^) as I said it is a new toy
 - library is still in development and not ready for production
 - Still working to get that perfect score
   - all lines are tested but not yet showing in the coverage reports... ~<|8^]
@@ -61,13 +69,13 @@ interface NodeList {
   //diagnostic
   display():Array<Object>,
 
-  stepBackTo(number): Node,
-  stepForwardTo(number): Node,
+  rewind(number): Node,
+  advance(number): Node,
   appendData(any): Node,
 
   //controlled input
-  insert(nodal): Node,
   //takes form method(left:Node, new:Node );
+  insert(nodal): Node,
 
   //mid list inserts
   insertNewBefore(Node): Node,
@@ -130,9 +138,9 @@ interface NodeList {
 
 ```
 npm audit
-                                                                                
+
                        === npm audit security report ===                        
-                                                                                
+
 found 0 vulnerabilities
  in 23784 scanned packages                                                                                
 

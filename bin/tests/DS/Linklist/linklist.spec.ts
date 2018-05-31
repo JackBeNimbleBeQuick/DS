@@ -3,6 +3,8 @@ import {NodeList} from 'DS/Linklist/NodeList';
 import {DoubleNodal} from 'DS/Linklist/Validated/DoubleNodal';
 import {Fibonacci} from 'DS/Librarian/Transforms/Linklist/Fibonacci';
 
+const words =["retire","drab","wool","dime","alleged","possessive","complete","well-groomed","preserve","curve","moaning","quilt","tasteful","incompetent","match","guarantee","coil","hospitable","cave","spectacular","own","whip","ring","imagine","milk","disgusted","wriggle","freezing","tire","rose","produce","empty","unwritten","regret","whistle","yard","dispensable","practise","acid","insidious","hellish","forgetful","rob","magical","lucky","money","frantic","lush","cent","condemned","bump","announce","tendency","amuse","obscene","threatening","light","obtain","event","squealing","save","loving","burst","stone","meek","scared","stamp","meeting","need","fit","vague","gamy","chase","arrest","capricious","plant","exultant","cultured","warm","reflect","likeable","relation","efficient","frogs","bewildered","rule","road","pass","like","hobbies","premium","day","fine","wax","low","prevent","hook","fork","satisfying","waiting"]
+
 /*
 [outside source](https://www.browserling.com/tools/fibonacci-numbers)
  */
@@ -15,8 +17,8 @@ const run_length = 100;
 /*
 @TESTS snap shot 2018.26.05
 ✓ test of moving up and down a NodeList by number of steps
-   NodeList.stepForwardTo(number)
-   NodeList.stepBackTo(number)
+   NodeList.advance(number)
+   NodeList.rewind(number)
    NodeList.currentData() (1ms)
 ✓ test of
    NodeList.insertAfter(Node)
@@ -221,8 +223,8 @@ describe('Node Assemblies', () => {
 
 //@NOTE Node midway references
 it('test of moving up and down a NodeList by number of steps '+
-'\n     NodeList.stepForwardTo(number)'+
-'\n     NodeList.stepBackTo(number)'+
+'\n     NodeList.advance(number)'+
+'\n     NodeList.rewind(number)'+
 '\n     NodeList.currentData()', () => {
 
   let runit  = new runner();
@@ -232,25 +234,37 @@ it('test of moving up and down a NodeList by number of steps '+
   let list = startList.apply(Fibonacci.Transformer);
   let pinpoint:Node;
 
-  //we will go five nodes forward from start and predict outcome
+  list = new NodeList();
+  let wordlist = words.forEach((word) => {
+    list.appendData(word);
+  });
 
-  pinpoint = list.stepForwardTo(5);
-  expect(pinpoint.data).toEqual(5);
+  let report = null;
+  let iterate = run_length;
 
-  pinpoint = list.stepForwardTo(9);
-  expect(pinpoint.data).toEqual(34);
+  while(iterate > 0){
+    //randmom from remaining keys
+    let pick = Math.floor(Math.random()*words.length);
+    //key of named to remove from NodeList
+    let select = words[pick];
+    let word = words[pick]
+    let line = `pick: ${pick} key: ${ select ? select : 'null select'} \n`;
+    report += line;
 
-  pinpoint = list.stepForwardTo(15);
-  expect(pinpoint.data).toEqual(610);
+    pinpoint = list.advance(pick+1);
+    expect(pinpoint.data).toEqual(word);
+    pinpoint = list.rewind(pick+1);
 
-  pinpoint = list.stepBackTo(5);
-  expect(pinpoint.data).toEqual(987);
+    let backtick =  words.length - pick;
+    word = words[backtick-1];
+    expect(pinpoint.data).toEqual(word);
 
-  pinpoint = list.stepBackTo(9);
-  expect(pinpoint.data).toEqual(144);
+    // if(pinpoint)
+    // console.log(`${backtick}: ${word} ?= ${pinpoint.data} `);
 
-  pinpoint = list.stepBackTo(15);
-  expect(pinpoint.data).toEqual(8);
+    iterate--;
+  }
+  // console.log(report);
 
 });
 
@@ -262,7 +276,7 @@ it('test of  '+
 
   //create list and then Let Fibonacci teach it some math
   let transformer = new transforms();
-  let list = transformer.fibonacciFromIntNodes();
+  let list        = transformer.fibonacciFromIntNodes();
 
   let iterate = [
     {
@@ -280,7 +294,7 @@ it('test of  '+
   for(let step in iterate){
 
     //resets pointer to start of op
-    let current =list.stepForwardTo(15);
+    let current =list.advance(15);
     //resets pointer to new node
 
     let nn:DSNode.Node = new Node('random insert');
@@ -351,7 +365,7 @@ it('test of  '+
   expect(noder.getMessage()).toEqual('nodal protocol missing at least one valid Node');
 
   list = transform.fibonacciFromIntNodes(20);
-  let ipoint = list.stepBackTo(15);
+  let ipoint = list.rewind(15);
 
   noder = new DoubleNodal(new Node('inserted'), ipoint, DoubleNodal.direction.backward);
   if(noder.isValid()){
@@ -428,6 +442,7 @@ it('test of  '+
 ''
 , () => {
 
+  let transformer = new transforms();
   let list = new NodeList();
   let named = {};
 
@@ -456,15 +471,12 @@ it('test of  '+
     keys.splice(pick,1);
   }
 
-  console.log(`Delete Report: '+
-  '\n this is best done with eyeballs'+
-  '\n no faiures is a good indication that things work'+
+  console.log(`Delete Report: '
+  '\n this is best done with eyeballs'
+  '\n no faiures is a good indication that things work'
   '\n ${report}`);
 
-
-  list = new NodeList();
   make();
-  // console.log(list);
   console.log(list.display().join(', '));
 
   current = list.getFirst();
@@ -498,6 +510,7 @@ it('test of  '+
 
     keys.splice(pick,1);
   }
+  console.log(list);
 });
 
 export class transforms{

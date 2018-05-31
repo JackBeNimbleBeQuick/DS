@@ -106,7 +106,8 @@ export class NodeList implements NodeList{
    * @REVIEW consider form of this that does not reset pointer
    * this method sets the internal _pointer for retrievals &| transforms
    */
-  public  stepBackTo = (index:number) => {
+  public  rewind = (index:number) => {
+    if(index === this._len) return this._first;
     let current = this._last;
     let steps = index > this._len -1 ? this._len : index -1;
     while(current && steps){
@@ -122,7 +123,9 @@ export class NodeList implements NodeList{
    * @REVIEW consider form of this that does not reset pointer
    * this method sets the internal _pointer for retrievals &| transforms
    */
-  public  stepForwardTo = (index:number) => {
+  public  advance = (index:number) => {
+    if(index === 1) return this._first;
+    if(index === this._len) return this._last;
     let current = this.getFirst();
     let steps = index > this._len -1 ? this._len : index -1;
     while(current && steps){
