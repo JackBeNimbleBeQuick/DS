@@ -118,6 +118,7 @@ interface NodeList {
 ### build and use transformers
 
 ```
+  let list = new NodeList();
   let end = 19
   let i = 0;
   do{
